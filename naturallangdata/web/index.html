@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaturalLangData Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="bg-orb orb-a"></div>
+  <div class="bg-orb orb-b"></div>
+
+  <main class="shell">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>NaturalLangData</h1>
+        <p>Agentic Document Analytics</p>
+      </div>
+
+      <button id="new-chat-btn" class="btn btn-primary">+ New Chat</button>
+
+      <section class="panel upload-panel">
+        <h2>Data Source</h2>
+        <label for="source-type">Type</label>
+        <select id="source-type">
+          <option value="document" selected>Document (PDF, DOCX, CSV, XLSX)</option>
+          <option value="csv" disabled>CSV / XLSX (using document ingestion)</option>
+          <option value="parquet" disabled>Parquet (soon)</option>
+          <option value="db" disabled>Database (soon)</option>
+        </select>
+
+        <label for="pdf-upload">Upload Document</label>
+        <input id="pdf-upload" type="file" accept="application/pdf,.docx,.csv,.xlsx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+        <button id="upload-btn" class="btn btn-secondary">Ingest Document</button>
+        <p id="upload-status" class="hint">No upload yet.</p>
+      </section>
+
+      <section class="panel chats-panel">
+        <div class="panel-title-row">
+          <h2>Chats</h2>
+          <span id="chat-count">0</span>
+        </div>
+        <ul id="chat-list" class="chat-list"></ul>
+      </section>
+    </aside>
+
+    <section class="conversation-zone">
+      <header class="conversation-header">
+        <div>
+          <h2 id="chat-title">New Conversation</h2>
+          <p id="chat-subtitle">Ask questions about your ingested data sources.</p>
+        </div>
+        <div class="selectors">
+          <label for="document-select">Document</label>
+          <select id="document-select">
+            <option value="">All Documents</option>
+          </select>
+        </div>
+      </header>
+
+      <section id="messages" class="messages"></section>
+
+      <form id="composer" class="composer">
+        <textarea id="question-input" rows="1" placeholder="Ask about trends, anomalies, summaries..." required></textarea>
+        <button type="submit" class="btn btn-primary">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
