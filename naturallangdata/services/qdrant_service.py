@@ -19,7 +19,7 @@ class QdrantService:
     """All Qdrant operations in one place."""
 
     def __init__(self, settings: Settings) -> None:
-        self._client = QdrantClient(url=settings.qdrant_url)
+        self._client = QdrantClient(url=settings.qdrant_url, check_compatibility=False)
         self._collection = settings.qdrant_collection
         self._dim = settings.embedding_dim
 

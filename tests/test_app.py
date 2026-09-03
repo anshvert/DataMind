@@ -30,7 +30,7 @@ def test_root(client):
     response = client.get("/")
     assert response.status_code == 200
     assert "text/html" in response.headers.get("content-type", "")
-    assert "NaturalLangData" in response.text
+    assert "DataMind" in response.text or "NaturalLangData" in response.text
 
 
 def test_health(client):

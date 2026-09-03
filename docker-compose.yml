@@ -1,36 +1,22 @@
 services:
   qdrant:
     image: qdrant/qdrant
-    container_name: querymind_qdrant
+    container_name: naturallangdata_qdrant
     ports:
-      - "6333:6333"  # HTTP / REST
-      - "6334:6334"  # gRPC
+      - "6333:6333"
+      - "6334:6334"
     volumes:
       - qdrant_data:/qdrant/storage
     environment:
       QDRANT__LOG_LEVEL: INFO
     restart: unless-stopped
 
-  # postgres:
-  #   image: postgres
-  #   container_name: querymind_postgres
-  #   environment:
-  #     POSTGRES_USER: querymind
-  #     POSTGRES_PASSWORD: querymind
-  #     POSTGRES_DB: querymind
-  #   ports:
-  #     - "5432:5432"
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #   restart: unless-stopped
-
-  # redis:
-  #   image: redis
-  #   container_name: querymind_redis
-  #   ports:
-  #     - "6379:6379"
-  #   restart: unless-stopped
+  redis:
+    image: redis:7-alpine
+    container_name: naturallangdata_redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
 
 volumes:
   qdrant_data:
-  # postgres_data:

@@ -1,0 +1,9 @@
+sku,product_name,category,stock_count,unit_price
+SKU-1001,Cloud Server Pro,Infrastructure,85,1200.0
+SKU-1002,Edge Gateway X,Hardware,240,450.0
+SKU-1003,Database Cluster Engine,Software,500,2800.0
+SKU-1004,Secure Vault Module,Security,60,3100.0
+SKU-1005,Load Balancer Appliance,Hardware,130,890.0
+SKU-1006,API Gateway Enterprise,Software,420,1750.0
+SKU-1007,Telemetry Node,IoT,310,220.0
+SKU-1008,Backup Storage Unit,Infrastructure,95,1450.0

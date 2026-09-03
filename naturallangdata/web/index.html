@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NaturalLangData Chat</title>
+  <title>DataMind — Conversational Analytics & Business Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
   <link rel="stylesheet" href="/static/styles.css" />
 </head>
 <body>
@@ -16,31 +17,32 @@
   <main class="shell">
     <aside class="sidebar">
       <div class="sidebar-header">
-        <h1>NaturalLangData</h1>
-        <p>Agentic Document Analytics</p>
+        <div class="brand-badge">
+          <span class="brand-dot"></span>
+          <h1>DataMind</h1>
+        </div>
+        <p>Conversational BI & Analytics</p>
       </div>
 
       <button id="new-chat-btn" class="btn btn-primary">+ New Chat</button>
 
       <section class="panel upload-panel">
-        <h2>Data Source</h2>
-        <label for="source-type">Type</label>
+        <h2>Data Ingestion</h2>
+        <label for="source-type">Supported File Type</label>
         <select id="source-type">
-          <option value="document" selected>Document (PDF, DOCX, CSV, XLSX)</option>
-          <option value="csv" disabled>CSV / XLSX (using document ingestion)</option>
-          <option value="parquet" disabled>Parquet (soon)</option>
-          <option value="db" disabled>Database (soon)</option>
+          <option value="document" selected>Document (PDF, DOCX)</option>
+          <option value="analytics">Analytics Data (CSV, Parquet)</option>
         </select>
 
-        <label for="pdf-upload">Upload Document</label>
-        <input id="pdf-upload" type="file" accept="application/pdf,.docx,.csv,.xlsx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-        <button id="upload-btn" class="btn btn-secondary">Ingest Document</button>
+        <label id="upload-label" for="pdf-upload">Upload Document (PDF, DOCX)</label>
+        <input id="pdf-upload" type="file" accept=".pdf,.docx,application/pdf" />
+        <button id="upload-btn" class="btn btn-secondary">Ingest File</button>
         <p id="upload-status" class="hint">No upload yet.</p>
       </section>
 
       <section class="panel chats-panel">
         <div class="panel-title-row">
-          <h2>Chats</h2>
+          <h2>Conversations</h2>
           <span id="chat-count">0</span>
         </div>
         <ul id="chat-list" class="chat-list"></ul>
@@ -51,20 +53,32 @@
       <header class="conversation-header">
         <div>
           <h2 id="chat-title">New Conversation</h2>
-          <p id="chat-subtitle">Ask questions about your ingested data sources.</p>
+          <p id="chat-subtitle">Ask questions about your parquet/CSV datasets, SQL databases, or documents.</p>
         </div>
         <div class="selectors">
-          <label for="document-select">Document</label>
-          <select id="document-select">
-            <option value="">All Documents</option>
+          <label for="engine-filter">Database / Engine</label>
+          <select id="engine-filter">
+            <option value="">All Engines (Auto-detect)</option>
+            <option value="duckdb">DuckDB (Analytical Files: Parquet, CSV)</option>
+            <option value="sqlite">SQLite (Operational Relational DB)</option>
+            <option value="document">Document RAG (PDF, DOCX)</option>
           </select>
         </div>
       </header>
 
-      <section id="messages" class="messages"></section>
+      <section id="messages" class="messages custom-scrollbar"></section>
+
+      <div id="execution-stepper" class="stepper-panel hidden">
+        <div class="stepper-header">
+          <span class="stepper-dot"></span>
+          <strong>Execution Trace</strong>
+          <span id="stepper-status" class="stepper-status-badge">Running</span>
+        </div>
+        <div id="stepper-events" class="stepper-events-list"></div>
+      </div>
 
       <form id="composer" class="composer">
-        <textarea id="question-input" rows="1" placeholder="Ask about trends, anomalies, summaries..." required></textarea>
+        <textarea id="question-input" rows="1" placeholder="Ask about trends, totals, distributions, anomalies, or database queries..." required></textarea>
         <button type="submit" class="btn btn-primary">Send</button>
       </form>
     </section>
