@@ -1,4 +1,4 @@
-# NaturalLangData
+# DataMind
 
 A learning-first document RAG app built with FastAPI and the LangChain ecosystem.
 
